@@ -9,7 +9,7 @@ const brands = ["Apple", "HUAWEI", "Xiaomi"];
 const memories = ["64GB", "128GB"];
 const models = ["iPhone 14", "iPhone 12", "nova Y61", "Redmi"];
 
-const PhonePage: React.FC = () => {
+export default function PhonePage (){
   
   return (
     <ProductsList
@@ -22,4 +22,3 @@ const PhonePage: React.FC = () => {
   );
 };
 
-export default PhonePage;

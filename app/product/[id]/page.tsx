@@ -8,11 +8,9 @@ import { cn } from "@/shared/components/libs";
 import toast from "react-hot-toast";
 import { Heart } from "lucide-react";
 
-interface Props {
-  className?: string;
-}
 
-const ProductPage: React.FC<Props> = ({ className }) => {
+
+export default function ProductPage ( )  {
   const { addToCart } = useStore((state) => state);
   const { products } = useStore((state) => state);
   const { id } = useParams();
@@ -20,7 +18,7 @@ const ProductPage: React.FC<Props> = ({ className }) => {
 
   if (!product || products.length === 0) {
     return (
-      <Container className={cn("mt-4", className)}>
+      <Container className={cn("mt-4",)}>
         <Title text="Загрузка товара..." size="md" />
       </Container>
     );
@@ -30,7 +28,7 @@ const ProductPage: React.FC<Props> = ({ className }) => {
   console.log("найденный продукт", product);
   return (
     <Container
-      className={cn("mt-4 flex flex-col  max-sm:pb-80 max-sm:px-4", className)}
+      className={cn("mt-4 flex flex-col  max-sm:pb-80 max-sm:px-4")}
     >
       <Title text="Карточка товара" size="md" />
       <div className="flex justify-between max-sm:flex-col">
@@ -116,4 +114,3 @@ const ProductPage: React.FC<Props> = ({ className }) => {
   );
 };
 
-export default ProductPage;

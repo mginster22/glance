@@ -10,7 +10,8 @@ const brands = ["Apple", "HUAWEI", "Xiaomi"];
 const memories = ["64GB", "128GB"];
 const models = ["iPhone 14", "iPhone 12", "nova Y61", "Redmi"];
 const operMemory = ["1Gb", "2Gb", "4Gb", "8Gb"];
-const NoutPage: React.FC<Props> = ({ className }) => {
+
+export default function NoutPage() {
   return (
     <ProductsList
       initialProducts={nout}
@@ -21,6 +22,4 @@ const NoutPage: React.FC<Props> = ({ className }) => {
       operMemory={operMemory}
     />
   );
-};
-
-export default NoutPage;
+}
