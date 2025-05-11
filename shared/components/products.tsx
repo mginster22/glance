@@ -21,7 +21,7 @@ export const Products: React.FC<Props> = ({
   productMobileClassCart,
 }) => {
   return (
-    <div className={cn(" mt-4 ", className)}>
+    <div className={cn("mt-4", className)}>
       {useSwiper ? (
         <SwiperContainer className={className}>
           {products.map((item) => (
@@ -36,8 +36,8 @@ export const Products: React.FC<Props> = ({
       ) : (
         <div
           className={cn(
-            "flex flex-wrap max-w-250 gap-4 max-sm:overflow-auto",
-            productMobileClassCart && "max-sm:flex-col max-sm:w-full",
+            "flex flex-wrap  gap-4 ",
+            productMobileClassCart && "max-sm:flex-col  max-sm:p-0" ,
             className
           )}
         >

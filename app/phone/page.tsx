@@ -1,24 +1,20 @@
-
 import React from "react";
-import { ProductsList } from "@/shared/components";
+import { Container, ProductsList } from "@/shared/components";
 import { phone } from "@/shared/components/constants/phone";
 import { phoneFilterFn } from "@/shared/components/libs/get-phone-filters";
-
 
 const brands = ["Apple", "HUAWEI", "Xiaomi"];
 const memories = ["64GB", "128GB"];
 const models = ["iPhone 14", "iPhone 12", "nova Y61", "Redmi"];
 
-export default function PhonePage (){
-  
+export default function PhonePage() {
   return (
-    <ProductsList
-      initialProducts={phone}
-      filterFn={phoneFilterFn} 
-      brands={brands}
-      memories={memories}
-      models={models}
-    />
+      <ProductsList
+        initialProducts={phone}
+        filterFn={phoneFilterFn}
+        brands={brands}
+        memories={memories}
+        models={models}
+      />
   );
-};
-
+}

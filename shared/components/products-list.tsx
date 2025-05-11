@@ -39,7 +39,7 @@ export const ProductsList: React.FC<Props> = ({
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Container className="flex gap-6 grow">
+      <Container className="flex justify-between gap-6 max-sm:flex-col max-sm:gap-0 ">
         <SearchFilters
           filters={filters}
           brands={brands}
@@ -52,7 +52,6 @@ export const ProductsList: React.FC<Props> = ({
         <Products
           products={filteredData}
           productMobileClassCart={true}
-          className="grow"
         />
       </Container>
     </div>

@@ -42,7 +42,7 @@ export const SearchFilters: React.FC<Props> = ({
     items: string[],
     filterKey: "brand" | "model" | "memory"
   ) => (
-    <div className="flex flex-col gap-2 mt-2 max-h-[300px] ">
+    <div className="flex flex-col gap-2 mt-2 max-h-[300px] w-[400px]">
       <h4 className="font-bold text-[18px] mb-2">{title}</h4>
       <div className="overflow-y-auto pr-2 max-h-[60px]">
         {items.map((item) => (

@@ -34,7 +34,7 @@ export const Product: React.FC<Props> = ({
       className={cn(
         " relative flex flex-col gap-4 justify-between mr-2  shadowcustom px-2 py-2 rounded-xl w-[217px] max-sm:w-[150px] max-sm:gap-1 max-sm:justify-start ",
         productMobileClassCart &&
-          "max-sm:flex-row  max-sm:w-full max-sm:gap-4  ",
+          "max-sm:flex-row  max-sm:w-full max-sm:gap-4 max-sm:px-0 max-sm:py-2",
         className
       )}
     >
@@ -65,6 +65,7 @@ export const Product: React.FC<Props> = ({
           <img
             src={item.img[currentIndex]}
             alt="product"
+            className={cn("", productMobileClassCart && "max-sm:w-[100px]")}
           />
         </Link>
         <div className="flex items-center gap-2 justify-center mt-2">
@@ -121,7 +122,7 @@ export const Product: React.FC<Props> = ({
         <div
           className={cn(
             "flex items-center gap-3 mt-2 max-sm:gap-2 max-sm:mt-0",
-            productMobileClassCart && "max-sm:translate-x-[120px]"
+            productMobileClassCart && "max-sm:ml-40"
           )}
         >
           {item.discount ? (
