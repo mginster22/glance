@@ -1,0 +1,73 @@
+"use client";
+import { Container, Products } from "@/shared/components";
+import { nout } from "@/shared/components/constants/nout";
+import { phone } from "@/shared/components/constants/phone";
+import { cn } from "@/shared/components/libs";
+import { useStore } from "@/store/useProductCartStore";
+import { ProductItem } from "@/types/products";
+import React from "react";
+
+interface Props {
+  className?: string;
+}
+
+const CatalogPage: React.FC<Props> = ({ className }) => {
+  const { products } = useStore((state) => state);
+
+  const phones = products.filter((p) => p.name === "Смартфон");
+  const nouts = products.filter((p) => p.name === "Ноутбук");
+
+  const linkArr = [
+    {
+      link: "#smartphones",
+      title: "Смартфоны",
+    },
+    {
+      link: "#nouts",
+      title: "Ноутбуки",
+    },
+    {
+      link: "#smartphones",
+      title: "Компютеры",
+    },
+    {
+      link: "#smartphones",
+      title: "Планшеты",
+    },
+    {
+      link: "#smartphones",
+      title: "Часы",
+    },
+    
+  ];
+
+  return (
+    <Container className={cn("mt-4 flex flex-col gap-2", className)}>
+      <div className={cn("flex flex-col gap-8 fixed top-55 left-4  z-50 max-sm:hidden")}>
+        {linkArr.map((l,index) => (
+          <a href={l.link} key={index} className="text-sm border-b-1 py-3">
+            {l.title}
+          </a>
+        ))}
+      </div>
+      <h2 id="smartphones" className="scroll-mt-40 text-xl font-bold mb-4 ml-20 max-sm:ml-4">
+        Смартфоны
+      </h2>
+      <Products
+        products={phones}
+        className="max-w-500  pl-8  max-sm:pl-0"
+      />
+
+      <h2 id="nouts" className="scroll-mt-40 text-xl font-bold mt-8 mb-4 ml-20 max-sm:ml-4" >
+        Ноутбуки
+      </h2>
+      <Products
+        products={nouts}
+        className="max-w-500 pl-8 "
+
+      />
+    </Container>
+  );
+};
+
+export default CatalogPage;
