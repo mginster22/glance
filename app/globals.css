@@ -4,9 +4,7 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  overflow-x: hidden;
-}
+
 @custom-variant dark (&:is(.dark *));
 
 @layer components {
@@ -130,6 +128,6 @@ body {
     @apply bg-background text-foreground;
   }
 }
-* {
+/* * {
   outline: 1px solid red !important;
-}
+} */
