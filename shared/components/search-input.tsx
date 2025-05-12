@@ -12,9 +12,9 @@ interface Props {
 
 export const SearchInput: React.FC<Props> = ({ allProducts }) => {
   const setSearchTerm = useStore((state) => state.setSearchTerm);
-  const getProducts =useStore((state=>state.getProducts))
+  const getProducts = useStore((state) => state.getProducts);
   const { searchTerm } = useStore((state) => state);
-  
+
   const wrapperRef = React.useRef<HTMLDivElement>(null);
 
   const filteredProducts = allProducts.filter((product) => {
@@ -34,15 +34,14 @@ export const SearchInput: React.FC<Props> = ({ allProducts }) => {
         setSearchTerm(""); // Сброс поиска
       }
     }
-    getProducts(allProducts)
+    getProducts(allProducts);
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [setSearchTerm,getProducts]);
+  }, [setSearchTerm, getProducts]);
 
-  console.log(allProducts)
   return (
-    <div className="flex flex-col "ref={wrapperRef}>
+    <div className="flex flex-col " ref={wrapperRef}>
       <label className="flex items-center relative w-[750px] max-sm:w-[350px]">
         <Search className="absolute left-4" size={20} />
         <input

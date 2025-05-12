@@ -41,6 +41,7 @@ export const useFilters = <T>(
     return data.filter((item) => filterFn(item, filters));
   }, [data, filters, filterFn]);
 
+  console.log(filteredData)
   return {
     filters,
     setFilters,

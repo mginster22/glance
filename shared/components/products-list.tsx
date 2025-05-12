@@ -24,18 +24,16 @@ export const ProductsList: React.FC<Props> = ({
   models,
   operMemory,
 }) => {
-  const { products, getProducts } = useStore((state) => state);
 
-  useEffect(() => {
-    getProducts(initialProducts);
-  }, [getProducts, initialProducts]);
+
 
   const {
     filters,
     handleCheckboxChange,
     handlePriceChange,
     filteredData,
-  } = useFilters(products, filterFn);
+  } = useFilters(initialProducts, filterFn);
+
 
   return (
     <div className="min-h-screen flex flex-col">
