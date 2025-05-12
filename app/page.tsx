@@ -5,7 +5,7 @@ import React from "react";
 export default function Home() {
  
   return (
-    <div className="mt-4 max-sm:pb-80">
+    <div className="mt-4 max-sm:pb-40">
       <Banner />
       <Catalog />
       <Stock />
