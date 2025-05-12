@@ -11,13 +11,17 @@ import { MenuMobileBottom } from "./menu-mobile-bottom";
 import { phone } from "./constants/phone";
 import { nout } from "./constants/nout";
 import { ProductItem } from "@/types/products";
+import { ProfilePopup } from "./profile-popup";
+import { useUserStore } from "@/store/userStore";
 
 interface Props {
   className?: string;
 }
 
 export const Header: React.FC<Props> = ({ className }) => {
+  const fullname = useUserStore((state) => state.fullname);
   const { cart, active, openCart } = useStore((state) => state);
+  const [profile, setProfile] = React.useState(false);
   const getProducts = useStore((state) => state.getProducts);
 
   const allProducts: ProductItem[] = [...phone, ...nout];
@@ -42,7 +46,6 @@ export const Header: React.FC<Props> = ({ className }) => {
             <SearchInput allProducts={allProducts} />
           </div>
           <div className="max-sm:hidden max-sm:gap-1 gap-6 items-center flex bg-white  border-gray-200 z-50 py-2">
-           
             <Link href="/catalog" className="flex flex-col items-center gap-1">
               <AlignJustify />
               <span className="text-xs">Каталог</span>
@@ -62,14 +65,26 @@ export const Header: React.FC<Props> = ({ className }) => {
                 <span className="text-xs">Корзина</span>
               </div>
             )}
-            <Link href="/profile" className="flex flex-col items-center gap-1">
-              <UserRound />
-              <span className="text-xs">Профиль</span>
-            </Link>
+            <div className="relative">
+              <div
+                className="flex flex-col items-center gap-1 cursor-pointer"
+                onClick={() => setProfile((prev) => !prev)}
+              >
+                <UserRound />
+                <span className="text-xs">{fullname ?? "Профиль"}</span>
+              </div>
+              {profile && <ProfilePopup onClose={() => setProfile(false)} />}
+            </div>
           </div>
         </Container>
       </div>
-      <MenuMobileBottom cart={cart} active={active} openCart={openCart} />
+      <MenuMobileBottom
+        cart={cart}
+        active={active}
+        openCart={openCart}
+        setProfile={setProfile}
+        profile={profile}
+      />
     </>
   );
 };
