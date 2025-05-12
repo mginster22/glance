@@ -20,7 +20,11 @@ export const Product: React.FC<Props> = ({
   productMobileClassCart,
 }) => {
   const { addToCart } = useStore((state) => state);
+  const storeProducts = useStore((state) => state.products);
+  
 
+  const productInStore = storeProducts.find((p) => p.id === item.id);
+  const availableQuantity = productInStore?.quantity ?? item.quantity ?? 0;
   const [currentImgIndex, setCurrentImgIndex] = React.useState<
     Record<number, number>
   >({});
@@ -29,6 +33,8 @@ export const Product: React.FC<Props> = ({
   const handleImageChange = (id: number, index: number) => {
     setCurrentImgIndex((prev) => ({ ...prev, [id]: index }));
   };
+  
+
   return (
     <div
       className={cn(
@@ -104,7 +110,7 @@ export const Product: React.FC<Props> = ({
               productMobileClassCart && "max-sm:text-[16px] "
             )}
           >
-            <span >{item.name}</span>
+            <span>{item.name}</span>
             <span>{item.brand}</span>
           </p>
 
@@ -146,7 +152,7 @@ export const Product: React.FC<Props> = ({
             productMobileClassCart && "max-sm:translate-y-[-38px] "
           )}
         >
-          {(item.quantity ?? 0) > 0 ? (
+          {(availableQuantity ?? 0) > 0 ? (
             <span
               className={cn(
                 "text-[#169B00] text-[16px] max-sm:text-[12px]",
@@ -189,9 +195,11 @@ export const Product: React.FC<Props> = ({
               count: 1,
               selectedImg: item.img[currentImgIndex[item.id] ?? 0],
             });
+            
             toast.success("Товар добавлен в корзину");
+            console.log("item", item);
           }}
-          disabled={(item.quantity ?? 0) === 0}
+          disabled={(availableQuantity ?? 0) === 0}
         />
       </div>
     </div>

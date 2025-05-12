@@ -17,6 +17,7 @@ interface StoreState {
   closeCart: () => void;
   searchTerm: string;
   setSearchTerm: (term: string) => void;
+  updateProductQuantity: (id: number, quantity: number) => void;
 }
 
 export const useStore = create<StoreState>()(
@@ -28,8 +29,17 @@ export const useStore = create<StoreState>()(
       searchTerm: "",
 
       // Загружаем товары в состояние
-      getProducts: (products) => set({ products }),
-      
+      getProducts: (incomingProducts) =>
+        set((state) => ({
+          products: incomingProducts.map((newProduct) => {
+            const existing = state.products.find((p) => p.id === newProduct.id);
+            return {
+              ...newProduct,
+              quantity: existing?.quantity ?? newProduct.quantity,
+            };
+          }),
+        })),
+
       setSearchTerm: (term) => set({ searchTerm: term }),
 
       // Метод для уменьшения количества товара на складе
@@ -51,43 +61,42 @@ export const useStore = create<StoreState>()(
               : product
           ),
         })),
+      updateProductQuantity: (productId, newQuantity) =>
+        set((state) => ({
+          products: state.products.map((product) =>
+            product.id === productId
+              ? { ...product, quantity: newQuantity }
+              : product
+          ),
+        })),
 
       // Метод для получения корзины
       getCart: (cart) => set({ cart }),
 
       // Метод для добавления товара в корзину
-      addToCart: (item) => {
-        const productId = item.productId ?? item.id;
-        const product = get().products.find((p) => p.id === productId);
-
-        if (!product || (product.quantity ?? 0) <= 0) return; // Если товара нет в наличии, не добавляем его
-
-        const existing = get().cart.find((i) => i.productId === productId);
-
-        // Проверка доступности товара на складе
-        const availableQuantity = product.quantity ?? 0;
+      addToCart: (item) =>
         set((state) => {
+          const updatedCart = [...state.cart];
+          const existing = updatedCart.find((i) => i.productId === item.productId);
+      
           if (existing) {
-            // Проверяем, можем ли увеличить количество товара в корзине
-            const maxCount = availableQuantity;
-            return {
-              cart: state.cart.map((i) =>
-                i.productId === productId
-                  ? { ...i, count: Math.min((i.count ?? 1) + 1, maxCount) }
-                  : i
-              ),
-            };
+            existing.count += 1;
           } else {
-            return {
-              cart: [...state.cart, { ...item, productId, count: 1 }],
-            };
+            updatedCart.push(item);
           }
-        });
-
-        // Уменьшаем количество товара на складе
-        get().decreaseProductQuantity(productId);
-      },
-
+      
+          const updatedProducts = state.products.map((p) =>
+            p.id === item.productId
+              ? { ...p, quantity: p.quantity - 1 }
+              : p
+          );
+      
+          return {
+            cart: updatedCart,
+            products: updatedProducts,
+          };
+        }),
+      
       // Метод для удаления товара из корзины
       deleteFromCart: (id) =>
         set((state) => {
@@ -117,7 +126,6 @@ export const useStore = create<StoreState>()(
           const oldCount = cartItem.count ?? 1;
           const diff = newCount - oldCount;
 
-          // Если разница больше нуля, проверяем, достаточно ли товара на складе
           if (diff > 0 && (product.quantity ?? 0) < diff) {
             return {}; // Не обновляем количество, если товара недостаточно
           }
@@ -152,7 +160,14 @@ export const useStore = create<StoreState>()(
     }),
     {
       name: "cart-storage", // ключ в localStorage
-      partialize: (state) => ({ cart: state.cart, products: state.products,searchTerm: state.searchTerm }), // сохраняем только корзину и товары
+      partialize: (state) => ({
+        cart: state.cart,
+        products: state.products,
+        searchTerm: state.searchTerm,
+      }), // сохраняем только корзину и товары
     }
   )
 );
+
+  
+

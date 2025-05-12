@@ -66,16 +66,11 @@ export const SwiperContainer: React.FC<Props> = ({
             swiperRef.current = swiper;
             setIsBeginning(swiper.isBeginning);
             setIsEnd(swiper.isEnd);
-            console.log(
-              "Swiper initialized:",
-              swiper.isBeginning,
-              swiper.isEnd
-            ); // Лог
+            
           }}
           onSlideChange={(swiper) => {
             setIsBeginning(swiper.isBeginning);
             setIsEnd(swiper.isEnd);
-            console.log("Slide changed:", swiper.isBeginning, swiper.isEnd); // Лог
           }}
         >
           {children}
@@ -89,16 +84,11 @@ export const SwiperContainer: React.FC<Props> = ({
             swiperRef.current = swiper;
             setIsBeginning(swiper.isBeginning);
             setIsEnd(swiper.isEnd);
-            console.log(
-              "Swiper initialized:",
-              swiper.isBeginning,
-              swiper.isEnd
-            ); // Лог
+           
           }}
           onSlideChange={(swiper) => {
             setIsBeginning(swiper.isBeginning);
             setIsEnd(swiper.isEnd);
-            console.log("Slide changed:", swiper.isBeginning, swiper.isEnd); // Лог
           }}
         >
           {children}

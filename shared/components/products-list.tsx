@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Container, Products, SearchFilters } from "@/shared/components";
 import { Filters, useFilters } from "@/shared/hooks/use-filters";
-import { useStore } from "@/store/useProductCartStore";
 import { ProductItem } from "@/types/products";
+import { useStore } from "@/store/useProductCartStore";
 
 interface Props {
   initialProducts: ProductItem[];
@@ -24,17 +24,9 @@ export const ProductsList: React.FC<Props> = ({
   models,
   operMemory,
 }) => {
-
-
-
-  const {
-    filters,
-    handleCheckboxChange,
-    handlePriceChange,
-    filteredData,
-  } = useFilters(initialProducts, filterFn);
-
-
+  const { filters, handleCheckboxChange, handlePriceChange, filteredData } =
+    useFilters(initialProducts, filterFn);
+   
   return (
     <div className="min-h-screen flex flex-col pb-20">
       <Container className="flex justify-between gap-6 max-sm:flex-col max-sm:gap-0 ">
@@ -47,10 +39,7 @@ export const ProductsList: React.FC<Props> = ({
           onChange={handleCheckboxChange}
           onPriceChange={handlePriceChange}
         />
-        <Products
-          products={filteredData}
-          productMobileClassCart={true}
-        />
+        <Products products={filteredData} productMobileClassCart={true} />
       </Container>
     </div>
   );

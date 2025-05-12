@@ -5,6 +5,7 @@ import { SwiperContainer } from "./ui";
 import { SwiperSlide } from "swiper/react";
 import { Product } from "./product";
 import { ProductItem } from "@/types/products";
+import { useStore } from "@/store/useProductCartStore";
 
 interface Props {
   className?: string;
@@ -20,6 +21,7 @@ export const Products: React.FC<Props> = ({
   products,
   productMobileClassCart,
 }) => {
+  
   return (
     <div className={cn("mt-4", className)}>
       {useSwiper ? (

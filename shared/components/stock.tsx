@@ -4,7 +4,6 @@ import { Products } from "./products";
 import { Container } from "./container";
 import { Title } from "./ui";
 import { cn } from "./libs";
-import { phone } from "./constants/phone";
 import { useStore } from "@/store/useProductCartStore";
 
 

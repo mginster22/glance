@@ -8,11 +8,9 @@ import { CartDrawer } from "./ui/cart-drawer";
 import { useStore } from "@/store/useProductCartStore";
 import { SearchInput } from "./search-input";
 import { MenuMobileBottom } from "./menu-mobile-bottom";
-import { phone } from "./constants/phone";
-import { nout } from "./constants/nout";
-import { ProductItem } from "@/types/products";
 import { ProfilePopup } from "./profile-popup";
 import { useUserStore } from "@/store/userStore";
+import { products } from "./constants/products";
 
 interface Props {
   className?: string;
@@ -24,11 +22,21 @@ export const Header: React.FC<Props> = ({ className }) => {
   const [profile, setProfile] = React.useState(false);
   const getProducts = useStore((state) => state.getProducts);
 
-  const allProducts: ProductItem[] = [...phone, ...nout];
+  const storeProducts = useStore((state) => state.products);
 
   React.useEffect(() => {
-    getProducts(allProducts);
-  }, [getProducts]);
+    const storeIds = storeProducts.map((p) => p.id).sort();
+    const initialIds = products.map((p) => p.id).sort();
+
+    const areEqual =
+      storeIds.length === initialIds.length &&
+      storeIds.every((id, i) => id === initialIds[i]);
+
+    if (!areEqual) {
+      getProducts(products);
+      
+    }
+  }, [storeProducts, products, getProducts]);
 
   return (
     <>
@@ -43,7 +51,7 @@ export const Header: React.FC<Props> = ({ className }) => {
             <Link href="/">
               <img src="/logo.png" />
             </Link>
-            <SearchInput allProducts={allProducts} />
+            <SearchInput allProducts={products} />
           </div>
           <div className="max-sm:hidden max-sm:gap-1 gap-6 items-center flex bg-white  border-gray-200 z-50 py-2">
             <Link href="/catalog" className="flex flex-col items-center gap-1">

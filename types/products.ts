@@ -7,7 +7,7 @@ export interface BaseProduct {
   price: number;
   discount?: number;
   newModel?: boolean;
-  quantity?: number;
+  quantity: number;
   name: string;
   characteristic: {
     screen: string;
@@ -24,5 +24,5 @@ export interface ProductItem extends BaseProduct {}
 export interface CartItem extends BaseProduct {
   productId: number;
  selectedImg: string
-  count?: number; // количество в корзине
+  count: number; // количество в корзине
 }
