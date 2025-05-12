@@ -13,6 +13,7 @@ const operMemory = ["1Gb", "2Gb", "4Gb", "8Gb"];
 
 export default function NoutPage() {
   return (
+    
     <ProductsList
       initialProducts={nout}
       filterFn={noutFilterFn}

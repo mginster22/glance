@@ -28,7 +28,7 @@ export default function ProductPage ( )  {
   console.log("найденный продукт", product);
   return (
     <Container
-      className={cn("mt-4 flex flex-col  max-sm:pb-80 max-sm:px-4")}
+      className={cn("mt-4 flex flex-col  max-sm:pb-40 max-sm:px-4")}
     >
       <Title text="Карточка товара" size="md" />
       <div className="flex justify-between max-sm:flex-col">

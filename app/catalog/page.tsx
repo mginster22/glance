@@ -34,7 +34,7 @@ export default function CatalogPage() {
   ];
 
   return (
-    <Container className={cn("mt-4 flex flex-col gap-2")}>
+    <Container className={cn("mt-4 flex flex-col gap-2 max-sm:pb-20")}>
       <div
         className={cn(
           "flex flex-col gap-8 fixed top-55 left-4  z-50 max-sm:top-0 max-sm:flex-row max-sm:bg-white max-sm:left-0 max-sm:px-2 max-sm:shadow-md max-sm:sticky max-sm:w-full "
