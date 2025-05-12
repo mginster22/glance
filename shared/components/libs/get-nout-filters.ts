@@ -1,6 +1,7 @@
 "use client"
 import { Filters } from "@/shared/hooks/use-filters";
-import { nout } from "../constants/nout";
+import { products } from "../constants/products";
+const nout = products.filter((item) => item.name === "nout");
 
 export const noutFilterFn = (item: (typeof nout)[0], filters: Filters) => {
   const inBrand =

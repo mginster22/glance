@@ -29,7 +29,7 @@ export const ProductsList: React.FC<Props> = ({
    
   return (
     <div className="min-h-screen flex flex-col pb-20">
-      <Container className="flex justify-between gap-6 max-sm:flex-col max-sm:gap-0 ">
+      <Container className="flex  gap-6 max-sm:flex-col max-sm:gap-0 ">
         <SearchFilters
           filters={filters}
           brands={brands}

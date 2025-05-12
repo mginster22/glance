@@ -1,6 +1,8 @@
 "use client"
 import { Filters } from "@/shared/hooks/use-filters";
-import { phone } from "../constants/phone";
+import { products } from "../constants/products";
+const phone = products.filter((item) => item.name === "nout");
+
 
 export const phoneFilterFn = (item: (typeof phone)[0], filters: Filters) => {
   const inBrand =
