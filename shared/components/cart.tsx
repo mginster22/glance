@@ -35,18 +35,18 @@ export const Cart: React.FC<Props> = ({ className }) => {
               <div className="flex items-center gap-3 mt-2">
                 {item.discount ? (
                   <>
-                    <span className="pointer-events-none select-none font-bold text-[20px]">
+                    <span className="pointer-events-none select-none font-bold text-[20px]" suppressHydrationWarning >
                       {Math.round(
                         item.price * (1 - (item.discount ?? 0) / 100)
                       )}{" "}
                       грн
                     </span>
-                    <span className="pointer-events-none  select-none font-light text-[15px] line-through">
+                    <span className="pointer-events-none  select-none font-light text-[15px] line-through" suppressHydrationWarning>
                       {item.price} грн
                     </span>
                   </>
                 ) : (
-                  <span className="pointer-events-none  select-none  font-bold text-[20px]">
+                  <span className="pointer-events-none  select-none  font-bold text-[20px]" suppressHydrationWarning>
                     {item.price} грн
                   </span>
                 )}

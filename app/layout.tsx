@@ -12,6 +12,9 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: "GLANCE",
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export default function RootLayout({
