@@ -11,6 +11,10 @@ html {
   .shadowcustom {
     box-shadow: 0px -4px 10px #dedede, 0px 4px 10px #dedede;
   }
+  .not-callable {
+    pointer-events: none;
+    user-select: none;
+  }
 }
 
 @theme inline {
