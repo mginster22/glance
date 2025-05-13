@@ -71,7 +71,7 @@ export const Product: React.FC<Props> = ({
           <img
             src={item.img[currentIndex]}
             alt="product"
-            className={cn("", productMobileClassCart && "max-sm:w-[100px]")}
+            className={cn("object-contain h-[150px]", productMobileClassCart && "max-sm:w-[100px] max-sm:h-[100px ]")}
           />
         </Link>
         <div className="flex items-center gap-2 justify-center mt-2">
