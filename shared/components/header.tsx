@@ -23,7 +23,10 @@ export const Header: React.FC<Props> = ({ className }) => {
   const getProducts = useStore((state) => state.getProducts);
 
   const storeProducts = useStore((state) => state.products);
+
   const popupRef = React.useRef<HTMLDivElement>(null);
+  const iconRef = React.useRef<HTMLDivElement>(null);
+
   const [showRegister, setShowRegister] = React.useState(false);
 
   React.useEffect(() => {
@@ -41,9 +44,13 @@ export const Header: React.FC<Props> = ({ className }) => {
 
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+
       if (
         popupRef.current &&
-        !popupRef.current.contains(event.target as Node)
+        !popupRef.current.contains(target) &&
+        iconRef.current &&
+        !iconRef.current.contains(target)
       ) {
         setProfile(false);
       }
@@ -53,7 +60,7 @@ export const Header: React.FC<Props> = ({ className }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [setProfile]);
+  }, []);
 
   return (
     <>
@@ -96,6 +103,7 @@ export const Header: React.FC<Props> = ({ className }) => {
             )}
             <div className="relative">
               <div
+                ref={iconRef}
                 className="flex flex-col items-center gap-1 cursor-pointer"
                 onClick={() => setProfile((prev) => !prev)}
               >
