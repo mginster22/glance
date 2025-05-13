@@ -197,7 +197,6 @@ export const Product: React.FC<Props> = ({
             });
             
             toast.success("Товар добавлен в корзину");
-            console.log("item", item);
           }}
           disabled={(availableQuantity ?? 0) === 0}
         />

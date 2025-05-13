@@ -7,19 +7,22 @@ import { RegisterForm } from "./forms/register-form";
 interface Props {
   className?: string;
   onClose?: () => void;
+  setShowRegister: React.Dispatch<React.SetStateAction<boolean>>;
+  popupRef: React.RefObject<HTMLDivElement | null>;
 }
 
-export const ProfilePopup: React.FC<Props> = ({ className, onClose }) => {
+export const ProfilePopup: React.FC<Props> = ({ className, onClose ,popupRef,setShowRegister}) => {
   const fullname = useUserStore((state) => state.fullname);
   const logout = useUserStore((state) => state.logout);
-  const [showRegister, setShowRegister] = useState(false);
 
   
+
   return (
     <>
       <div
+        ref={popupRef}
         className={cn(
-          "absolute top-full mt-2 right-0 w-64 bg-white shadow-lg rounded-xl p-4 z-50 max-sm:bottom-60 max-sm:left-0 max-sm:w-20",
+          "absolute top-full mt-2 right-0 w-64 bg-white shadow-lg rounded-xl p-4 z-50  max-sm:left-1/2 max-sm:-translate-x-1/2 max-sm:top-100 max-sm:w-[90%] max-sm:fixed",
           className
         )}
       >
@@ -40,7 +43,10 @@ export const ProfilePopup: React.FC<Props> = ({ className, onClose }) => {
             <p className="text-sm text-gray-600">Вы вошли как гость</p>
             <button
               className="mt-4 w-full py-2 bg-black text-white rounded-md text-sm"
-              onClick={() => setShowRegister(true)}
+              onClick={() => {
+                onClose?.()
+                setShowRegister(true)
+              }}
             >
               Зарегистрироваться
             </button>
@@ -48,7 +54,7 @@ export const ProfilePopup: React.FC<Props> = ({ className, onClose }) => {
         )}
       </div>
 
-      {showRegister && <RegisterForm onClose={() => setShowRegister(false)} />}
+     
     </>
   );
 };

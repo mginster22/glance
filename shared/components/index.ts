@@ -10,3 +10,5 @@ export {SearchFilters} from "./search-filters";
 export {Cart} from "./cart";
 export {SearchInput} from "./search-input"
 export {ProductsList} from "./products-list"
+export {ProductInfoBlock} from "./product-info-block"
+export {CatalogProducts} from "./catalog-products"

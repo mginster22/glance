@@ -1,3 +1,4 @@
+"use client";
 import { AlignJustify, House, ShoppingCart, UserRound } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -12,6 +13,7 @@ interface Props {
   cart?: any;
   profile: boolean;
   setProfile: React.Dispatch<React.SetStateAction<boolean>>;
+  popupRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export const MenuMobileBottom: React.FC<Props> = ({
@@ -21,8 +23,11 @@ export const MenuMobileBottom: React.FC<Props> = ({
   cart,
   profile,
   setProfile,
+  popupRef
 }) => {
   const fullname = useUserStore((state) => state.fullname);
+
+ 
 
   return (
     <div className="sm:hidden fixed bottom-0 left-0 right-0 flex justify-around items-center bg-white border-t border-gray-200 z-50 py-2">
@@ -53,7 +58,9 @@ export const MenuMobileBottom: React.FC<Props> = ({
           <UserRound />
           <span className="text-xs">{fullname ?? "Профиль"}</span>
         </div>
-        {profile && <ProfilePopup onClose={() => setProfile(false)} />}
+        {profile && (
+          <ProfilePopup onClose={() => setProfile(false)} popupRef={popupRef} />
+        )}
       </div>
     </div>
   );

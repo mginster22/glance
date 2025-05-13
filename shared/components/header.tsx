@@ -11,6 +11,7 @@ import { MenuMobileBottom } from "./menu-mobile-bottom";
 import { ProfilePopup } from "./profile-popup";
 import { useUserStore } from "@/store/userStore";
 import { products } from "./constants/products";
+import { RegisterForm } from "./forms/register-form";
 
 interface Props {
   className?: string;
@@ -23,6 +24,9 @@ export const Header: React.FC<Props> = ({ className }) => {
   const getProducts = useStore((state) => state.getProducts);
 
   const storeProducts = useStore((state) => state.products);
+  const popupRef = React.useRef<HTMLDivElement>(null);
+  const [showRegister, setShowRegister] = React.useState(false);
+
 
   React.useEffect(() => {
     const storeIds = storeProducts.map((p) => p.id).sort();
@@ -34,9 +38,24 @@ export const Header: React.FC<Props> = ({ className }) => {
 
     if (!areEqual) {
       getProducts(products);
-      
     }
   }, [storeProducts, products, getProducts]);
+
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(event.target as Node)
+      ) {
+        setProfile(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setProfile]);
 
   return (
     <>
@@ -46,14 +65,18 @@ export const Header: React.FC<Props> = ({ className }) => {
           className
         )}
       >
-        <Container className="flex justify-between items-center mt-8 max-sm:justify-center">
+        <Container className="flex justify-between items-center mt-8 max-sm:justify-center ">
           <div className="flex items-center gap-30  max-sm:flex-col max-sm:gap-4  ">
             <Link href="/">
               <img src="/logo.png" />
             </Link>
             <SearchInput allProducts={products} />
           </div>
-          <div className="max-sm:hidden max-sm:gap-1 gap-6 items-center flex bg-white  border-gray-200 z-50 py-2">
+          <div className="max-sm:fixed max-sm:justify-center max-sm:bg-gray-100 max-sm:bottom-0 max-sm:w-full max-sm:gap-12 gap-6 items-center flex bg-gray-white  border-gray-200 z-50 py-2">
+            <Link href="/" className=" flex flex-col items-center gap-1">
+              <House className="" />
+              <span className="text-xs ">Главная</span>
+            </Link>
             <Link href="/catalog" className="flex flex-col items-center gap-1">
               <AlignJustify />
               <span className="text-xs">Каталог</span>
@@ -81,18 +104,21 @@ export const Header: React.FC<Props> = ({ className }) => {
                 <UserRound />
                 <span className="text-xs">{fullname ?? "Профиль"}</span>
               </div>
-              {profile && <ProfilePopup onClose={() => setProfile(false)} />}
+              {profile && (
+                <ProfilePopup
+                  onClose={() => setProfile(false)}
+                  setShowRegister={setShowRegister}
+                  popupRef={popupRef}
+                />
+              )}
+              {showRegister && (
+                <RegisterForm onClose={() => setShowRegister(false)} />
+              )}
             </div>
           </div>
         </Container>
       </div>
-      <MenuMobileBottom
-        cart={cart}
-        active={active}
-        openCart={openCart}
-        setProfile={setProfile}
-        profile={profile}
-      />
+     
     </>
   );
 };

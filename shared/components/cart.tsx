@@ -22,8 +22,6 @@ export const Cart: React.FC<Props> = ({ className }) => {
           .filter((cartItem) => cartItem.productId === item.productId)
           .reduce((acc, cur) => acc + cur.count, 0);
           const availableQuantity = productInStore?.quantity ?? 0;
-        console.log(cartCount, availableQuantity);
-        console.log(item)
         return (
           <div
             key={item.productId}
