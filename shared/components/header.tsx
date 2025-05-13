@@ -7,7 +7,6 @@ import Link from "next/link";
 import { CartDrawer } from "./ui/cart-drawer";
 import { useStore } from "@/store/useProductCartStore";
 import { SearchInput } from "./search-input";
-import { MenuMobileBottom } from "./menu-mobile-bottom";
 import { ProfilePopup } from "./profile-popup";
 import { useUserStore } from "@/store/userStore";
 import { products } from "./constants/products";
@@ -26,7 +25,6 @@ export const Header: React.FC<Props> = ({ className }) => {
   const storeProducts = useStore((state) => state.products);
   const popupRef = React.useRef<HTMLDivElement>(null);
   const [showRegister, setShowRegister] = React.useState(false);
-
 
   React.useEffect(() => {
     const storeIds = storeProducts.map((p) => p.id).sort();
@@ -118,7 +116,6 @@ export const Header: React.FC<Props> = ({ className }) => {
           </div>
         </Container>
       </div>
-     
     </>
   );
 };
