@@ -18,6 +18,7 @@ interface StoreState {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
   updateProductQuantity: (id: number, quantity: number) => void;
+  deleteAllCart: () => void;
 }
 
 export const useStore = create<StoreState>()(
@@ -77,26 +78,52 @@ export const useStore = create<StoreState>()(
       addToCart: (item) =>
         set((state) => {
           const updatedCart = [...state.cart];
-          const existing = updatedCart.find((i) => i.productId === item.productId);
-      
+          const existing = updatedCart.find(
+            (i) => i.productId === item.productId
+          );
+
           if (existing) {
             existing.count += 1;
           } else {
             updatedCart.push(item);
           }
-      
+
           const updatedProducts = state.products.map((p) =>
-            p.id === item.productId
-              ? { ...p, quantity: p.quantity - 1 }
-              : p
+            p.id === item.productId ? { ...p, quantity: p.quantity - 1 } : p
           );
-      
+
           return {
             cart: updatedCart,
             products: updatedProducts,
           };
         }),
-      
+      deleteAllCart: () =>
+        set((state) => {
+          // Копируем текущие товары
+          const updatedProducts = [...state.products];
+
+          // Проходим по всем товарам в корзине и возвращаем их количество на склад
+          state.cart.forEach((cartItem) => {
+            const productIndex = updatedProducts.findIndex(
+              (p) => p.id === cartItem.productId
+            );
+
+            if (productIndex !== -1) {
+              updatedProducts[productIndex] = {
+                ...updatedProducts[productIndex],
+                quantity:
+                  (updatedProducts[productIndex].quantity ?? 0) +
+                  (cartItem.count ?? 1),
+              };
+            }
+          });
+
+          return {
+            cart: [], // Очищаем корзину
+            products: updatedProducts, // Обновлённый список продуктов с восстановленным количеством
+          };
+        }),
+
       // Метод для удаления товара из корзины
       deleteFromCart: (id) =>
         set((state) => {
@@ -168,6 +195,3 @@ export const useStore = create<StoreState>()(
     }
   )
 );
-
-  
-

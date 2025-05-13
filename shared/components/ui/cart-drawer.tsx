@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const CartDrawer: React.FC<Props> = ({ className }) => {
-  const { active, closeCart } = useStore((state) => state);
+  const { active, closeCart,deleteAllCart } = useStore((state) => state);
   const drawerRef = useRef<HTMLDivElement>(null);
 
   // Закрытие при клике вне корзины
@@ -45,7 +45,10 @@ export const CartDrawer: React.FC<Props> = ({ className }) => {
           className
         )}
       >
-        <h2 className="text-xl font-bold mt-4 ml-5">Корзина</h2>
+        <div className="flex items-center gap-10">
+          <h2 className="text-xl font-bold mt-4 ml-5">Корзина</h2>
+          <h2  onClick={deleteAllCart} className="text-xl font-bold mt-4 select-none  ml-5">Очистить</h2>
+        </div>
         <Cart />
       </div>
     </div>
